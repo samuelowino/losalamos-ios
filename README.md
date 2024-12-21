@@ -3,6 +3,7 @@
 This series of labs focuses on evaluating performance issues and concurrency in iOS applications. The goal is to investigate UI freezes, data processing times, and persistence overhead. 
 
 ## Zero-Optimization Benchmark Data
+<img width="1102" alt="Screenshot 2024-12-21 at 08 01 24" src="https://github.com/user-attachments/assets/92e0428d-7d49-4291-a3f0-08f5f2c1b452" />
 
 The benchmark involves loading **2 million rows of data** and rendering them using `LazyVGrid`.
 

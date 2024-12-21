@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DC3ED3182D16959000BD71ED /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DC3ED3172D16959000BD71ED /* RealmSwift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		DCB7C2A52D162970008808A8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3ED3182D16959000BD71ED /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = concurrentalamos;
 			packageProductDependencies = (
+				DC3ED3172D16959000BD71ED /* RealmSwift */,
 			);
 			productName = concurrentalamos;
 			productReference = DCB7C2942D16296D008808A8 /* concurrentalamos.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = DCB7C28B2D16296D008808A8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DC3ED3162D16959000BD71ED /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DCB7C2952D16296D008808A8 /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DC3ED3162D16959000BD71ED /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				kind = exactVersion;
+				version = 10.54.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DC3ED3172D16959000BD71ED /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC3ED3162D16959000BD71ED /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DCB7C28C2D16296D008808A8 /* Project object */;
 }

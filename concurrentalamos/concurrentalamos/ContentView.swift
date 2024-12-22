@@ -42,6 +42,7 @@ struct ContentView: View {
 }
 struct DashbaordView: View {
     @StateObject var viewModel = DashbaordViewModel()
+    @State var isLoadingComplete: Bool = false
     var body: some View {
         VStack {
             HStack {
@@ -53,6 +54,9 @@ struct DashbaordView: View {
             }
             .padding()
             Divider()
+            if isLoadingComplete == false {
+                ProgressView("Loading Inventory...")
+            }
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.isotopes){ isotope in
@@ -102,6 +106,7 @@ struct DashbaordView: View {
         .onAppear {
             Task {
                 await viewModel.loadIsotopes()
+                self.isLoadingComplete.toggle()
             }
         }
     }
@@ -112,6 +117,8 @@ struct IsotopesFormView:View {
     @State var uranium235: Bool = true
     @State var plutonium239: Bool = false
     @State var isotopesCount: String = "1"
+    @State var isSavingIsotopes: Bool = false
+    @State var toggleIsotopesAlert: Bool = false
     var body: some View {
         VStack {
             Text("Add to Isotopes Store")
@@ -125,14 +132,25 @@ struct IsotopesFormView:View {
                     Spacer()
                 }
             }
+            if isSavingIsotopes == true {
+                ProgressView("Saving new isotopes...")
+            }
             Button {
+                isSavingIsotopes = true
                 Task {
                     await viewModel.addIsotopes(isotope: uranium235 ? "Uranium-235" : "Plutonium-239", amountInMillions: 1)
-                    self.dismiss()
+                    self.isSavingIsotopes = false
+                    self.toggleIsotopesAlert = true
                 }
             } label: {
                 Label("Submit New Isotopes", systemImage: "plus")
                     .padding()
+            }
+        }
+        .alert("Finished saving Isotopes", isPresented: $toggleIsotopesAlert){
+            Button("Got it!"){
+                toggleIsotopesAlert = false
+                dismiss()
             }
         }
     }
@@ -156,6 +174,7 @@ class IsotopesFormViewModel: ObservableObject {
         await IsotopeRespository.saveIsotopes(newIsotopes)
     }
 }
+@MainActor
 class DashbaordViewModel: ObservableObject {
     @Published var isotopes: [IsotopeModel] = []
     func loadIsotopes() async {
@@ -169,6 +188,7 @@ class DashbaordViewModel: ObservableObject {
         await IsotopeRespository.deleteAll()
     }
 }
+@MainActor
 class ContentViewModel: ObservableObject {
     @Published var storeSize: Int = 0
     func burnIsotopes() async {

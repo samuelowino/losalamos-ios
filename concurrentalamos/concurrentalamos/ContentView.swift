@@ -179,10 +179,8 @@ class DashbaordViewModel: ObservableObject {
     @Published var isotopes: [IsotopeModel] = []
     func loadIsotopes() async {
         let isotopes = await IsotopeRespository.getIsotopes()
-        DispatchQueue.main.async {
-            self.isotopes.removeAll()
-            self.isotopes.append(contentsOf: isotopes)
-        }
+        self.isotopes.removeAll()
+        self.isotopes.append(contentsOf: isotopes)
     }
     func deleteAll() async {
         await IsotopeRespository.deleteAll()
@@ -196,9 +194,7 @@ class ContentViewModel: ObservableObject {
     }
     func count() async {
         let count = await IsotopeRespository.countIsotopes()
-        DispatchQueue.main.async {
-            self.storeSize = count
-        }
+        self.storeSize = count
     }
 }
 struct IsotopeModel: Identifiable{

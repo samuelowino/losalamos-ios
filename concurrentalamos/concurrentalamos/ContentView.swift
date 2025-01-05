@@ -171,7 +171,9 @@ class IsotopesFormViewModel: ObservableObject {
                 stability: Int.random(in: 0...1)  == 1 ? "ST" : "UT")
             )
         }
-        await IsotopeRespository.saveIsotopes(newIsotopes)
+        Task.detached {
+            await IsotopeRespository.saveIsotopes(newIsotopes)
+        }
     }
 }
 @MainActor
